@@ -39,6 +39,13 @@ class _AuthScreenState extends State<AuthScreen> {
                           keyboardType: TextInputType.emailAddress,
                           autocorrect: false,
                           textCapitalization: TextCapitalization.none,
+                          validator: (value) {
+                            if (value == null ||
+                                value.trim().isEmpty ||
+                                !value.contains('@')) {
+                              return 'Please a enter a valid email address.';
+                            }
+                          },
                         ),
                         const SizedBox(height: 12),
                         TextFormField(
