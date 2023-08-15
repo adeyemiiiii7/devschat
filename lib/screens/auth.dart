@@ -8,7 +8,20 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  final _formkey = GlobalKey<FormState>();
   var _isLogin = true;
+  var _enteredEmail = '';
+  var _enteredPassword = '';
+  void _submit() {
+    final isValid = _formkey.currentState!.validate();
+
+    if (isValid) {
+      _formkey.currentState!.save();
+      print(_enteredEmail);
+      print(_enteredPassword);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +41,8 @@ class _AuthScreenState extends State<AuthScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Form(
+                    //declare the formkey in your form widget to hold all inputed values
+                    key: _formkey,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -45,6 +60,10 @@ class _AuthScreenState extends State<AuthScreen> {
                                 !value.contains('@')) {
                               return 'Please a enter a valid email address.';
                             }
+                            return null;
+                          },
+                          onSaved: (value) {
+                            _enteredEmail = value!;
                           },
                         ),
                         const SizedBox(height: 12),
@@ -54,10 +73,21 @@ class _AuthScreenState extends State<AuthScreen> {
                             prefixIcon: Icon(Icons.lock),
                           ),
                           obscureText: true,
+                          validator: (value) {
+                            if (value == null ||
+                                value.trim().length < 6 ||
+                                !value.contains(RegExp(r'\d'))) {
+                              return 'Password must be at least 6 characters long and contain a number.';
+                            }
+                            return null;
+                          },
+                          onSaved: (value) {
+                            _enteredPassword = value!;
+                          },
                         ),
                         const SizedBox(height: 24),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: _submit,
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(
                               vertical: 12,
