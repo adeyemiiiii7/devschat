@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -28,7 +27,7 @@ class ChatScreen extends StatelessWidget {
                       Icons.exit_to_app,
                       color: Theme.of(context).colorScheme.primary,
                     ),
-                    title: Text('Logout'),
+                    title: const Text('Logout'),
                     onTap: () {
                       FirebaseAuth.instance.signOut();
                       Navigator.of(context).pop();

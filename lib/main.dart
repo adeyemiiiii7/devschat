@@ -23,7 +23,6 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'devschat',
       theme: ThemeData().copyWith(
-        useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
             seedColor: const Color.fromARGB(0, 11, 57, 106)),
       ),
